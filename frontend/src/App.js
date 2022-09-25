@@ -1,8 +1,11 @@
+import {Form, Toast,Welcome} from './components'
 function App() {
   return (
-    <div className="App">
-O Level Companion
-    </div>
+    <section className='section-center gap-y'>
+      <Toast/>
+      <Welcome/>
+      <Form/>
+    </section>
   );
 }
 

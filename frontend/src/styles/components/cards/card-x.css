@@ -1,0 +1,23 @@
+.card-x {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+  }
+  
+  .img-sm-round {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: var(--light-shadow);
+  }
+  
+  .card-x h4 {
+    margin-bottom: 0.35rem;
+  }
+  
+  .card-x p {
+    margin-bottom: 0;
+  }

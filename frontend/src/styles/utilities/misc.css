@@ -1,0 +1,41 @@
+/*
+=============== 
+MISCELLENEEOUS
+===============
+*/
+.underline {
+  width: 6.5rem;
+  height: 0.25rem;
+  background: var(--clr-primary-5);
+  margin-left: 0;
+  margin-right: auto;
+  margin-bottom: 0.5rem;
+}
+
+.box-shadow {
+  box-shadow: var(--dark-shadow);
+}
+
+.center {
+  margin: 0.5rem auto;
+}
+
+.loading .title {
+  font-size: 0.75rem;
+  padding: 3rem;
+}
+
+.border-bottom {
+  border-bottom: 0.5px dotted var(--clr-grey-5);
+}
+
+.gap-y {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.alert {
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
