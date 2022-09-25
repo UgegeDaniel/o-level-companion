@@ -1,9 +1,16 @@
-const Toast = () => {
+import {useEffect} from 'react'
+
+const Toast = ({toast, setToast}) => {
+    const {show, style, msg} = toast
+    useEffect(()=> {
+        const cleanUp = setTimeout(()=>{
+            setToast({...toast, show: false})
+        }, 3000)
+        return () => clearTimeout(cleanUp)
+    })
     return (
         <div>
-            <p className={`alert alert`}>Toast Message</p>
-            {/* <p className={`alert alert-success`}>Suucess Toast Message</p>
-            <p className={`alert alert-danger`}>Error Toast Message</p> */}
+            {show && <p className={`alert alert-${style}`}>{msg}</p>}
         </div>
     )
 }

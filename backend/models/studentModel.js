@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require("bcrypt")
 const Schema = mongoose.Schema
-const userSchema = new Schema({
+const studentSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -12,17 +12,18 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    // history: {
-    //     type: []
-    // }
+    userName:{
+        type: String,
+        required: true
+    }
 }
 )
 
 //Static Sign up method 
-userSchema.statics.signup = async function (email, password) {
+studentSchema.statics.signup = async function (email, password, userName) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
-    const user = await this.create({ email, password: hash })
-    return user
+    const student = await this.create({ email, password: hash, userName })
+    return student
 }
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('Student', studentSchema)

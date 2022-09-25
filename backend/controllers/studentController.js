@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const User = require('../models/userModel')
+const Student = require('../models/studentModel')
 const validator = require('validator')
 const bcrypt = require("bcrypt")
 const MY_SECRET = process.env.JWT_SECRET
@@ -8,11 +8,11 @@ const createToken = (_id) => {
     return jwt.sign({ _id }, MY_SECRET, { expiresIn: '3d' })
 }
 
-const validateSignUpCredentials = async (email, password) => {
+const validateSignUpCredentials = async (email, password, userName) => {
     let error = ''
-    const exists = await User.findOne({ email }) ? true : false
-    if (!email || !password) {
-        error = 'Please fill in an email and a password'
+    const exists = await Student.findOne({ email }) ? true : false
+    if (!email || !password || !userName) {
+        error = 'Please fill in a valid email, userName and a password'
     } else if (!validator.isEmail(email)) {
         error = 'Please enter a valid Email Addresss'
     }
@@ -20,7 +20,7 @@ const validateSignUpCredentials = async (email, password) => {
         error = 'Please enter a strong password'
     }
     else if (exists) {
-        error = 'User already exists with that email'
+        error = 'Student already exists with that email'
     }
     else {
         error = ''
@@ -29,14 +29,14 @@ const validateSignUpCredentials = async (email, password) => {
 }
 
 const validateLoginCredentials = async (email, password) => {
-    const user = await User.findOne({ email })
+    const student = await Student.findOne({ email })
     let error = ''
     if (!email || !password) {
         error = 'Please fill in an email and a password'
-    }else if (!user) {
-        error = 'User not found with that email'
-    } else if (user) {
-        const match = await bcrypt.compare(password, user.password)
+    }else if (!student) {
+        error = 'Student not found with that email'
+    } else if (student) {
+        const match = await bcrypt.compare(password, student.password)
         if(!match){
             error = 'Please provide a correct password'
         }
@@ -44,32 +44,32 @@ const validateLoginCredentials = async (email, password) => {
     return error
 }
 //login
-const loginUser = async (req, res) => {
+const loginStudent= async (req, res) => {
     const { email, password } = req.body;
-    const user = await User.findOne({ email })
+    const student = await Student.findOne({ email })
     const error = await validateLoginCredentials(email, password)
     if (error) {
         res.status(400).json({ error })
         console.log("error:", error)
     } else {
-        const token = createToken(user._id)
+        const token = createToken(student._id)
         res.status(200).json({ email, token })
     }
 }
 //signup
-const signupUser = async (req, res) => {
-    const { email, password } = req.body;
-    const error = await validateSignUpCredentials(email, password)
+const signupStudent = async (req, res) => {
+    const { email, password, userName } = req.body;
+    const error = await validateSignUpCredentials(email, password, userName)
     if (error){
         res.status(400).json({ error })
     } else {
-        const user = User.signup(email, password)
-        const token = createToken(user._id)
-        res.status(200).json({ email, token })
+        const student = Student.signup(email, password, userName)
+        const token = createToken(student._id)
+        res.status(200).json({ email, token, userName})
     }
 }
 
 module.exports = {
-    loginUser,
-    signupUser
+    loginStudent,
+    signupStudent
 }
