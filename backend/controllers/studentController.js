@@ -53,7 +53,8 @@ const loginStudent= async (req, res) => {
         console.log("error:", error)
     } else {
         const token = createToken(student._id)
-        res.status(200).json({ email, token })
+        const {userName} = student
+        res.status(200).json({ email, token, userName })
     }
 }
 //signup
@@ -66,6 +67,7 @@ const signupStudent = async (req, res) => {
         const student = Student.signup(email, password, userName)
         const token = createToken(student._id)
         res.status(200).json({ email, token, userName})
+        console.log(userName)
     }
 }
 

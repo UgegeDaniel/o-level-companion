@@ -24,9 +24,9 @@ const Form = ({ login }) => {
             setToast({ show: true, style: "danger", msg: error || err})
             return
         }
-        await signup({email, password, userName})
+        !login && await signup({email, password, userName})
         console.log(error)
-        setToast({ show: true, style: "success", msg: 'Congratualations Sign up success !!!' })
+        !login && setToast({ show: true, style: "success", msg: 'Congratualations Sign up success !!!' })
         login && setToast({ show: true, style: "success", msg: 'Congratualations Login success !!!' })
     }
 
