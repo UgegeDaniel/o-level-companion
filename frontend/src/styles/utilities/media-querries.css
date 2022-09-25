@@ -23,11 +23,6 @@
     align-items: center;
   }
 
-  .flex-row {
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
   .info-card .btn {
     margin-bottom: 1rem;
   }
