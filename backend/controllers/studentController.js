@@ -71,7 +71,31 @@ const signupStudent = async (req, res) => {
     }
 }
 
+const getStudentHistory = async (req, res) => {
+	const {email} = req.body;
+try{
+const student = await await Student.findOne({ email });
+const studentHistory = student.history
+res.status(200).json({studentHistory})
+}catch(error){
+res.status(500).json({error})
+}
+}
+
+const updateStudentHistory = async (req, res) => {
+	const {email, newData} = req.body;
+try{
+const student = await Student.findOne({ email });
+student.history.push(newData)
+const newHistory = student.history
+res.status(201).json({newHistory})
+}catch(error){
+res.status(500).json({error})
+}
+}
 module.exports = {
     loginStudent,
-    signupStudent
+    signupStudent,
+getStudentHistory,
+updateStudentHistory
 }

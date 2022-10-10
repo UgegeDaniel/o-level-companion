@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const MY_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = process.env.JWT_SECRET
 const Student = require('../models/studentModel')
 
 const requireAuth = async (req, res, next) => {
@@ -9,8 +9,8 @@ const requireAuth = async (req, res, next) => {
     }
     const token = authorization.split(' ')[1]
     try{
-        const test = jwt.verify(token, MY_SECRET);
-       const {_id} = jwt.verify(token, MY_SECRET);
+        const test = jwt.verify(token, JWT_SECRET);
+       const {_id} = jwt.verify(token, JWT_SECRET);
        req.student = await Student.findOne({_id}).select('_id')
     }catch(error){
         console.log(error)

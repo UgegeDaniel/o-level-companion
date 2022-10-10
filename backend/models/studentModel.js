@@ -15,7 +15,8 @@ const studentSchema = new Schema({
     userName:{
         type: String,
         required: true
-    }
+    },
+history: []
 }
 )
 
