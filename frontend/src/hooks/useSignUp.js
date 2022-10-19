@@ -5,7 +5,7 @@ export const useSignup = () => {
     const [isLoading, setIsLoading] = useState(true)
     const {dispatch} = useAuthContext()
     const signup = async ({email, password, userName}) => {
-        const response = await fetch ('http://localhost:5000/student/signup', {
+        const response = await fetch ('https://jakk-backend.herokuapp.com/student/signup', {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({email, password, userName})
